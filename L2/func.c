@@ -34,7 +34,6 @@ Word* read_words_from_file(char* filename, int* num_words) {
 void find_and_save_words(Word words[], int num_words, Word** most_frequent_long_word_ptr, Word** least_frequent_short_word_ptr) {
     Word* most_frequent_long_word = NULL;
     Word* least_frequent_short_word = NULL;
-
     for (int i = 0; i < num_words; i++) {
         if (!words[i].was_used) {
             if (most_frequent_long_word == NULL || (strlen(words[i].word) > strlen(most_frequent_long_word->word) && words[i].count > most_frequent_long_word->count)) {
@@ -45,13 +44,12 @@ void find_and_save_words(Word words[], int num_words, Word** most_frequent_long_
             }
         }
     }
-    if (most_frequent_long_word != NULL && least_frequent_short_word != NULL) {
-        if (!most_frequent_long_word->was_used && !least_frequent_short_word->was_used) {
-            most_frequent_long_word->was_used = 1;
-            least_frequent_short_word->was_used = 1;
-            *most_frequent_long_word_ptr = most_frequent_long_word;
-            *least_frequent_short_word_ptr = least_frequent_short_word;
-        }
+
+    if (most_frequent_long_word != NULL && least_frequent_short_word != NULL && !most_frequent_long_word->was_used && !least_frequent_short_word->was_used) {
+        most_frequent_long_word->was_used = 1;
+        least_frequent_short_word->was_used = 1;
+        *most_frequent_long_word_ptr = most_frequent_long_word;
+        *least_frequent_short_word_ptr = least_frequent_short_word;
     }
 }
 void printWords(Word words[], int size) {
@@ -122,6 +120,6 @@ void replace_words_in_file(char* filename, Word* word_a, Word* word_b) {
 int find_old_size(Word* word1, Word* word2) {
     return strlen(word1->word) * word1->count + strlen(word2->word) * word2->count;
 }
-int find_new_size(Word* word1, Word* word2) {
-    return strlen(word1->word) * word2->count + strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word)+2;
+size_t find_new_size(Word* word1, Word* word2) {
+    return (size_t)strlen(word1->word) * word2->count + (size_t)strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word) + 2;
 }
