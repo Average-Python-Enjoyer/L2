@@ -16,7 +16,7 @@ void find_and_save_words(Word words[], int num_words, Word** most_frequent_long_
 char* read_line(FILE* file);
 void replace_words_in_file(char* filename, Word* word_a, Word* word_b);
 int find_old_size(Word* word1, Word* word2);
-size_t find_new_size(Word* word1, Word* word2);
+int find_new_size(Word* word1, Word* word2);
 
 void printWords(Word words[], int size);
 #endif //INC_5_1_FUNCTIONS_H
