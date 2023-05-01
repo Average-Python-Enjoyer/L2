@@ -63,6 +63,7 @@ char* read_line(FILE* file) {
     size_t buffer_size = 1024;
     char* buffer = malloc(buffer_size);
     size_t len = 0;
+
     while (fgets(buffer + len, buffer_size - len, file) != NULL) {
         len += strlen(buffer + len);
         if (len >= buffer_size - 1) {

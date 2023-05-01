@@ -31,14 +31,20 @@ int main() {
             pair_count++;
         }
         else {
+            // handle the error here
         }
     }
     FILE* file = fopen("C:/Users/danik/Desktop/text.txt", "a");
-    fprintf(file, " --- ");
-    for (int i = 0; i < pair_count; i++) {
-        fprintf(file, "%s\n", pairs[i]);
+    if (file != NULL) {
+        fprintf(file, " --- ");
+        for (int i = 0; i < pair_count; i++) {
+            fprintf(file, "%s\n", pairs[i]);
+        }
+        fclose(file);
     }
-    fclose(file);
+    else {
+        printf("Ошибка при открытии файла C:/Users/danik/Desktop/text.txt\n");
+    }
     for (int i = 0; i < max_pairs; i++) {
         free(pairs[i]);
     }
