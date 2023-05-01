@@ -62,7 +62,7 @@ char* read_line(FILE* file) {
     size_t buffer_size = 1024;
     char* buffer = malloc(buffer_size);
     size_t len = 0;
-    while (fgets(buffer + len, buffer_size - len, file) != NULL) {
+    while (fgets(buffer + len, (int)(buffer_size - len), file) != NULL) {
         len += strlen(buffer + len);
         if (len >= buffer_size - 1) {
             buffer_size *= 2;
@@ -86,7 +86,8 @@ void replace_words_in_file(const char* filename, Word* word_a, Word* word_b) {
     char* next_line = read_line(file);
     while (next_line != NULL) {
         line = next_line;
-        char* word = strtok(line, " \n");
+        char* saveptr;
+        char* word = strtok_r(line, " \n", &saveptr);
         while (word != NULL) {
             if (strcmp(word, word_a->word) == 0) {
                 fprintf(new_file, "%s", word_b->word);
@@ -97,7 +98,7 @@ void replace_words_in_file(const char* filename, Word* word_a, Word* word_b) {
             else {
                 fprintf(new_file, "%s", word);
             }
-            word = strtok(NULL, " \n");
+            word = strtok_r(NULL, " \n", &saveptr);
             if (word != NULL) {
                 fprintf(new_file, " ");
             }
@@ -118,8 +119,8 @@ void replace_words_in_file(const char* filename, Word* word_a, Word* word_b) {
     fclose(new_file);
 }
 int find_old_size(const Word* word1, const Word* word2) {
-    return strlen(word1->word) * word1->count + strlen(word2->word) * word2->count;
+    return (int)(strlen(word1->word) * word1->count + strlen(word2->word) * word2->count);
 }
 int find_new_size(const Word* word1, const Word* word2) {
-    return strlen(word1->word) * word2->count + strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word) + 2;
+    return (int)(strlen(word1->word) * word2->count + strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word) + 2);
 }
