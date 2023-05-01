@@ -9,6 +9,7 @@ Word* read_words_from_file(char* filename, int* num_words) {
         exit(1);
     }
     Word* words = malloc(sizeof(Word));
+    words[0].count = 0;
     char buffer[MAX_WORD_LENGTH];
     while (fscanf(file, "%s", buffer) != EOF) {
         int found = 0;
@@ -44,11 +45,13 @@ void find_and_save_words(Word words[], int num_words, Word** most_frequent_long_
             }
         }
     }
-    if (!most_frequent_long_word->was_used && !least_frequent_short_word->was_used) {
-        most_frequent_long_word->was_used = 1;
-        least_frequent_short_word->was_used = 1;
-        *most_frequent_long_word_ptr = most_frequent_long_word;
-        *least_frequent_short_word_ptr = least_frequent_short_word;
+    if (most_frequent_long_word != NULL && least_frequent_short_word != NULL) {
+        if (!most_frequent_long_word->was_used && !least_frequent_short_word->was_used) {
+            most_frequent_long_word->was_used = 1;
+            least_frequent_short_word->was_used = 1;
+            *most_frequent_long_word_ptr = most_frequent_long_word;
+            *least_frequent_short_word_ptr = least_frequent_short_word;
+        }
     }
 }
 void printWords(Word words[], int size) {
@@ -62,11 +65,13 @@ char* read_line(FILE* file) {
     size_t len = 0;
     while (fgets(buffer + len, buffer_size - len, file) != NULL) {
         len += strlen(buffer + len);
+        if (len >= buffer_size - 1) {
+            buffer_size *= 2;
+            buffer = realloc(buffer, buffer_size);
+        }
         if (buffer[len - 1] == '\n') {
             break;
         }
-        buffer_size *= 2;
-        buffer = realloc(buffer, buffer_size);
     }
     if (len == 0) {
         free(buffer);

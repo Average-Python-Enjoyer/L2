@@ -26,8 +26,13 @@ int main() {
             break;
         }
         replace_words_in_file("C:/Users/danik/Desktop/text.txt", most_frequent_long_word, least_frequent_short_word);
-        sprintf(pairs[pair_count], "%s %s", most_frequent_long_word->word, least_frequent_short_word->word);
-        pair_count++;
+        if (pair_count < max_pairs) {
+            sprintf(pairs[pair_count], "%s %s", most_frequent_long_word->word, least_frequent_short_word->word);
+            pair_count++;
+        }
+        else {
+            // handle the error here
+        }
     }
     FILE* file = fopen("C:/Users/danik/Desktop/text.txt", "a");
     fprintf(file, " --- ");
