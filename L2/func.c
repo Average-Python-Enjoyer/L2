@@ -117,9 +117,9 @@ void replace_words_in_file(const char* filename, Word* word_a, Word* word_b) {
     fclose(file);
     fclose(new_file);
 }
-int find_old_size(Word* word1, Word* word2) {
+int find_old_size(const Word* word1, const Word* word2) {
     return strlen(word1->word) * word1->count + strlen(word2->word) * word2->count;
 }
-int find_new_size(Word* word1, Word* word2) {
-    return strlen(word1->word)* word2->count + strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word) + 2;
+int find_new_size(const Word* word1, const Word* word2) {
+    return strlen(word1->word) * word2->count + strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word) + 2;
 }
