@@ -87,7 +87,7 @@ void replace_words_in_file(const char* filename, Word* word_a, Word* word_b) {
     while (next_line != NULL) {
         line = next_line;
         char* saveptr;
-        char* word = strtok_r(line, " \n", &saveptr);
+        char* word = strtok_s(line, " \n", &saveptr);
         while (word != NULL) {
             if (strcmp(word, word_a->word) == 0) {
                 fprintf(new_file, "%s", word_b->word);
@@ -98,7 +98,7 @@ void replace_words_in_file(const char* filename, Word* word_a, Word* word_b) {
             else {
                 fprintf(new_file, "%s", word);
             }
-            word = strtok_r(NULL, " \n", &saveptr);
+            word = strtok_s(NULL, " \n", &saveptr);
             if (word != NULL) {
                 fprintf(new_file, " ");
             }
