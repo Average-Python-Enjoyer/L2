@@ -120,6 +120,6 @@ void replace_words_in_file(char* filename, Word* word_a, Word* word_b) {
 int find_old_size(Word* word1, Word* word2) {
     return strlen(word1->word) * word1->count + strlen(word2->word) * word2->count;
 }
-size_t find_new_size(Word* word1, Word* word2) {
-    return (size_t)strlen(word1->word) * word2->count + (size_t)strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word) + 2;
+int find_new_size(Word* word1, Word* word2) {
+    return strlen(word1->word) * word2->count + strlen(word2->word) * word1->count + strlen(word1->word) + strlen(word2->word) + 2; 
 }
