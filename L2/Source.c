@@ -31,7 +31,6 @@ int main() {
             pair_count++;
         }
         else {
-            // handle the error here
         }
     }
     FILE* file = fopen("C:/Users/danik/Desktop/text.txt", "a");
