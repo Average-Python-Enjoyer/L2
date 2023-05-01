@@ -5,11 +5,12 @@
 Word* read_words_from_file(char* filename, int* num_words) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        printf("Ошибка при открытии файла %s\n", filename);
+        printf("Error opening file %s\n", filename);
         exit(1);
     }
     Word* words = malloc(sizeof(Word));
     words[0].count = 0;
+    words[0].word[0] = '\0';
     char buffer[MAX_WORD_LENGTH];
     while (fscanf(file, "%s", buffer) != EOF) {
         int found = 0;
@@ -61,7 +62,6 @@ char* read_line(FILE* file) {
     size_t buffer_size = 1024;
     char* buffer = malloc(buffer_size);
     size_t len = 0;
-
     while (fgets(buffer + len, buffer_size - len, file) != NULL) {
         len += strlen(buffer + len);
         if (len >= buffer_size - 1) {
@@ -78,7 +78,7 @@ char* read_line(FILE* file) {
     }
     return buffer;
 }
-void replace_words_in_file(char* filename, Word* word_a, Word* word_b) {
+void replace_words_in_file(const char* filename, Word* word_a, Word* word_b) {
     FILE* file = fopen(filename, "r");
     FILE* new_file = tmpfile();
     char buffer[MAX_WORD_LENGTH];
@@ -92,7 +92,7 @@ void replace_words_in_file(char* filename, Word* word_a, Word* word_b) {
                 fprintf(new_file, "%s", word_b->word);
             }
             else if (strcmp(word, word_b->word) == 0) {
-                fprintf(new_file, "%s", word_a->word); 
+                fprintf(new_file, "%s", word_a->word);
             }
             else {
                 fprintf(new_file, "%s", word);
