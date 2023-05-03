@@ -9,7 +9,9 @@ Word* read_words_from_file(char* filename, int* num_words) {
         exit(1);
     }
     Word* words = malloc(sizeof(Word));
-    words[0].count = 0;
+    for (int i = 0; i < *num_words; i++) {
+        words[i].count = 0;
+    }
     words[0].word[0] = '\0';
     char buffer[MAX_WORD_LENGTH];
     while (fscanf(file, "%s", buffer) != EOF) {
