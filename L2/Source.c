@@ -30,9 +30,6 @@ int main() {
             sprintf(pairs[pair_count], "%s %s", most_frequent_long_word->word, least_frequent_short_word->word);
             pair_count++;
         }
-        else {
-            // handle the error here
-        }
     }
     FILE* file = fopen("C:/Users/danik/Desktop/text.txt", "a");
     if (file != NULL) {
