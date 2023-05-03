@@ -25,7 +25,7 @@ Word* read_words_from_file(char* filename, int* num_words) {
         if (!found) {
             words = realloc(words, (*num_words + 1) * sizeof(Word));
             strcpy(words[*num_words].word, buffer);
-            words[*num_words].count = 0;
+            words[*num_words].count = 1;
             words[*num_words].was_used = 0;
             (*num_words)++;
         }
